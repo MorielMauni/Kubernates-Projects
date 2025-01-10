@@ -9,12 +9,14 @@ spec:
   containers: # List of Dictionaries
     - name: my-app-container # String
       image: myregistry.com/my-app:1.0 # String
-
-  # -------------- TOLERANCE -------------- #
-  tolerations: # List of
-    - key: "app" # String
-      effect: NoSchedule # String
-      value: "blue" # String
-
+  # ------------------- NODE AFFINITY -------------- #
+  affinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelector: # Dictionary
+        - matchExpressions:
+            - key: size
+              operator: In
+              values:
+                - Large
 # 'kubectl get pods': to show list of pods
 # 'kubectl describe pod <pod-name>': to see details information about the pod
